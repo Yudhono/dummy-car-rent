@@ -137,6 +137,47 @@ class _MyHomePageState extends State<HomeScreen> {
                 });
               }),
               const SizedBox(height: 20),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ChoiceChip(
+                      label: const Text('Luxury Card'),
+                      selected: true,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    ChoiceChip(
+                      label: const Text('Sedan'),
+                      selected: true,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    ChoiceChip(
+                      label: const Text('Hatchback'),
+                      selected: true,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    ChoiceChip(
+                      label: const Text('MPV'),
+                      selected: true,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
               Expanded(
                 child: GridView.builder(
                   itemCount: 8,
