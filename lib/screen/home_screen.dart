@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/carData.dart';
+import 'details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
@@ -232,73 +233,84 @@ class _MyHomePageState extends State<HomeScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 20),
-                          SizedBox(
-                            height: 100,
-                            width: double.infinity,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  car.imagePath,
-                                  scale: 2.8,
-                                ),
-                              ],
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) =>
+                                  DetailsScreen(car),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0, vertical: 7.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // const SizedBox(height: 10),
-                                Text(
-                                  car.name,
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w900),
-                                ),
-                                const SizedBox(height: 5),
-                                Image.asset(car.logoPath, scale: 12),
-                                const SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          '\$ ${car.price}',
-                                          style: const TextStyle(
-                                              color: Colors.black87,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                        Text(
-                                          ' ${car.duration}',
-                                          style: const TextStyle(
-                                              color: Colors.black45,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ],
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon:
-                                          const Icon(Icons.arrow_circle_right),
-                                    ),
-                                  ],
-                                )
-                              ],
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              height: 100,
+                              width: double.infinity,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    car.imagePath,
+                                    scale: 2.8,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 7.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // const SizedBox(height: 10),
+                                  Text(
+                                    car.name,
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w900),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Image.asset(car.logoPath, scale: 12),
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            '\$ ${car.price}',
+                                            style: const TextStyle(
+                                                color: Colors.black87,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          Text(
+                                            ' ${car.duration}',
+                                            style: const TextStyle(
+                                                color: Colors.black45,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ],
+                                      ),
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                            Icons.arrow_circle_right),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
