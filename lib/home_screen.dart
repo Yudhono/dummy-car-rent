@@ -10,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomeScreen> {
+  bool light = true;
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -136,7 +137,7 @@ class _MyHomePageState extends State<HomeScreen> {
                   );
                 });
               }),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -177,7 +178,43 @@ class _MyHomePageState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 7),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Available Near You',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'With Driver',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Transform.scale(
+                    scale: 0.75, // Adjust the scale factor as needed
+                    child: Switch(
+                      value: light,
+                      activeColor: Colors.red,
+                      onChanged: (bool value) {
+                        setState(() {
+                          light = value;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: GridView.builder(
                   itemCount: 8,
