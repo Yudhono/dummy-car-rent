@@ -13,8 +13,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomeScreen> {
-  bool light = true;
+  bool light = false;
   int _selectedIndex = 0;
+  final Set<int> _selectedChips = {}; // state for selected chip
+  bool _withDriver = false;
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -38,8 +41,28 @@ class _MyHomePageState extends State<HomeScreen> {
     });
   }
 
+  void _onClickedWithDriver() {
+    setState(() {
+      _withDriver = !_withDriver;
+    });
+  }
+
+  void _onChipSelected(int index) {
+    setState(() {
+      if (_selectedChips.contains(index)) {
+        _selectedChips.remove(index);
+      } else {
+        _selectedChips.add(index);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('with driver ${_withDriver}');
+    List<Car> filteredCarData = _withDriver
+        ? carData.where((car) => car.withDriver == true).toList()
+        : carData.where((car) => car.withDriver == false).toList();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       drawer: Drawer(
@@ -146,37 +169,69 @@ class _MyHomePageState extends State<HomeScreen> {
                 child: Row(
                   children: [
                     ChoiceChip(
-                      label: const Text('Luxury Card'),
-                      selected: true,
+                      label: const Text('Luxury Car'),
+                      selected: _selectedChips.contains(0),
+                      selectedColor: Colors.black87,
+                      checkmarkColor: Colors.white,
+                      labelStyle: TextStyle(
+                        color: _selectedChips.contains(0) ? Colors.white : null,
+                      ),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
+                      onSelected: (bool selected) {
+                        _onChipSelected(0);
+                      },
                     ),
                     const SizedBox(
                       width: 8,
                     ),
                     ChoiceChip(
                       label: const Text('Sedan'),
-                      selected: true,
+                      selected: _selectedChips.contains(1),
+                      selectedColor: Colors.black87,
+                      checkmarkColor: Colors.white,
+                      labelStyle: TextStyle(
+                        color: _selectedChips.contains(1) ? Colors.white : null,
+                      ),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
+                      onSelected: (bool selected) {
+                        _onChipSelected(1);
+                      },
                     ),
                     const SizedBox(
                       width: 8,
                     ),
                     ChoiceChip(
                       label: const Text('Hatchback'),
-                      selected: true,
+                      selected: _selectedChips.contains(2),
+                      selectedColor: Colors.black87,
+                      checkmarkColor: Colors.white,
+                      labelStyle: TextStyle(
+                        color: _selectedChips.contains(2) ? Colors.white : null,
+                      ),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
+                      onSelected: (bool selected) {
+                        _onChipSelected(2);
+                      },
                     ),
                     const SizedBox(
                       width: 8,
                     ),
                     ChoiceChip(
                       label: const Text('MPV'),
-                      selected: true,
+                      selected: _selectedChips.contains(3),
+                      labelStyle: TextStyle(
+                        color: _selectedChips.contains(3) ? Colors.white : null,
+                      ),
+                      selectedColor: Colors.black87,
+                      checkmarkColor: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
+                      onSelected: (bool selected) {
+                        _onChipSelected(3);
+                      },
                     ),
                   ],
                 ),
@@ -210,6 +265,7 @@ class _MyHomePageState extends State<HomeScreen> {
                       activeColor: Colors.black87,
                       onChanged: (bool value) {
                         setState(() {
+                          _onClickedWithDriver();
                           light = value;
                         });
                       },
@@ -220,14 +276,14 @@ class _MyHomePageState extends State<HomeScreen> {
               const SizedBox(height: 10),
               Expanded(
                 child: GridView.builder(
-                  itemCount: carData.length,
+                  itemCount: filteredCarData.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       childAspectRatio: 4 / 6),
                   itemBuilder: (context, index) {
-                    final car = carData[index];
+                    final car = filteredCarData[index];
                     return Material(
                       color: Colors.grey.shade200,
                       shape: RoundedRectangleBorder(

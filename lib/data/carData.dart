@@ -5,14 +5,15 @@ class Car {
   final String logoPath;
   final double price;
   final String duration;
+  final bool withDriver;
 
-  Car({
-    required this.name,
-    required this.imagePath,
-    required this.logoPath,
-    required this.price,
-    required this.duration,
-  });
+  Car(
+      {required this.name,
+      required this.imagePath,
+      required this.logoPath,
+      required this.price,
+      required this.duration,
+      required this.withDriver});
 }
 
 List<Car> carData = [
@@ -22,6 +23,7 @@ List<Car> carData = [
     logoPath: 'assets/audi-logo.png',
     price: 150,
     duration: ' /Day',
+    withDriver: false,
   ),
   Car(
     name: 'Audi Q5 2019',
@@ -29,6 +31,7 @@ List<Car> carData = [
     logoPath: 'assets/audi-logo.png',
     price: 200,
     duration: ' /Day',
+    withDriver: false,
   ),
   Car(
     name: 'Audi A7 2022',
@@ -36,5 +39,6 @@ List<Car> carData = [
     logoPath: 'assets/audi-logo.png',
     price: 250,
     duration: ' /Day',
+    withDriver: true,
   ),
 ];
