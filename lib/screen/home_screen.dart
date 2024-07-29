@@ -57,12 +57,39 @@ class _MyHomePageState extends State<HomeScreen> {
     });
   }
 
+  List<Car> _filterCars() {
+    List<Car> filteredCars = carData;
+    if (_withDriver) {
+      filteredCars = filteredCars.where((car) => car.withDriver).toList();
+    }
+    if (_selectedChips.isNotEmpty) {
+      final selectedTypes = _selectedChips.map((index) {
+        switch (index) {
+          case 0:
+            return 'LUXURY';
+          case 1:
+            return 'SEDAN';
+          case 2:
+            return 'HATCHBACK';
+          case 3:
+            return 'MPV';
+          case 4:
+            return 'SUV';
+          default:
+            return '';
+        }
+      }).toSet();
+      filteredCars = filteredCars
+          .where((car) => selectedTypes.contains(car.carType))
+          .toList();
+    }
+    return filteredCars;
+  }
+
   @override
   Widget build(BuildContext context) {
-    print('with driver ${_withDriver}');
-    List<Car> filteredCarData = _withDriver
-        ? carData.where((car) => car.withDriver == true).toList()
-        : carData.where((car) => car.withDriver == false).toList();
+    List<Car> filteredCarData = _filterCars();
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       drawer: Drawer(
@@ -231,6 +258,23 @@ class _MyHomePageState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(50)),
                       onSelected: (bool selected) {
                         _onChipSelected(3);
+                      },
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    ChoiceChip(
+                      label: const Text('SUV'),
+                      selected: _selectedChips.contains(4),
+                      labelStyle: TextStyle(
+                        color: _selectedChips.contains(4) ? Colors.white : null,
+                      ),
+                      selectedColor: Colors.black87,
+                      checkmarkColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      onSelected: (bool selected) {
+                        _onChipSelected(4);
                       },
                     ),
                   ],
